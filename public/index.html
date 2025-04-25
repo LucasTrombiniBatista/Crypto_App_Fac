@@ -6,6 +6,7 @@
   <title>Rastreador de Criptomoedas</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="chatbotview.css">
 </head>
 <body>
   <div class="container">
@@ -35,6 +36,34 @@
     </div>
   </div>
 
+<!-- ********************
+     * BOTÃO DO CHATBOT *
+     ******************** -->
+    <section class="sidebar-bot">
+      <botton id="chatbot_btn">
+        <i class="fa-sharp fa-solid fa-hand-point-up"></i> chatbot
+        </botton>
+    </section>
+        
+  <!-- Container do chat -->
+  <section class="container">
+    <section class="chat">
+        <section class="chat__messages">
+            <!-- <div class="message--self">Hello, Word!</div>
+            <div class="message--other">
+                <span class="message--sender"> Lusqueta </span>
+                Hello, Word!</div> -->
+        </section>
+
+        <form class="chat__form">
+            <input type="text" class="chat__input" placeholder="Digite sua mensagem" required>
+            <button type="submit" class="chat__button">
+                <span class="material-symbols-outlined">send</span>
+            </button>
+        </form>
+    </section>
+
   <script src="script.js"></script>
+  <script src="chatbot.js"></script>
 </body>
 </html>
