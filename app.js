@@ -54,3 +54,6 @@ app.get('/api/crypto', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
+
+app.use(express.static('public'));
+

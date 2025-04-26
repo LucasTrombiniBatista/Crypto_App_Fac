@@ -1,6 +1,8 @@
 // Constantes
 const ICON_URL = 'https://s2.coinmarketcap.com/static/img/coins/64x64/';
 const API_BASE_URL = 'http://localhost:3000/api/crypto';
+const apiKey = process.env.COINMARKET_API_KEY;
+
 
 // Elementos do DOM
 const cryptoContainer = document.getElementById('crypto-container');
@@ -96,3 +98,101 @@ refreshBtn.addEventListener('click', fetchCryptoData);
 
 // Inicialização
 document.addEventListener('DOMContentLoaded', fetchCryptoData);
+
+
+// Substitua a função fetchCryptoData por esta:
+async function fetchCryptoData() {
+  // Mostrar carregamento
+  elements.chartLoader.style.display = 'flex';
+  
+  try {
+      // Obter o ID da moeda selecionada
+      const coinId = getCoinId(state.selectedCoin);
+      
+      // Buscar dados históricos
+      const interval = state.timeframe === '1' ? 'h1' : 'd1';
+      const historyResponse = await fetch(`https://api.coincap.io/v2/assets/${coinId}/history?interval=${interval}&start=${getStartTime()}&end=${Date.now()}`);
+      const historyData = await historyResponse.json();
+      
+      // Buscar dados atuais
+      const coinResponse = await fetch(`https://api.coincap.io/v2/assets/${coinId}`);
+      const coinData = await coinResponse.json();
+      
+      // Atualizar o gráfico
+      updateChart(historyData.data);
+      
+      // Atualizar informações
+      updateCoinInfo(coinData.data);
+      
+  } catch (error) {
+      console.error('Erro ao buscar dados:', error);
+      alert('Erro ao buscar dados. Verifique o console para mais detalhes.');
+  } finally {
+      // Esconder carregamento
+      elements.chartLoader.style.display = 'none';
+  }
+}
+
+// Função para obter o timestamp inicial baseado no timeframe
+function getStartTime() {
+  const now = Date.now();
+  const days = parseInt(state.timeframe);
+  return now - (days * 24 * 60 * 60 * 1000);
+}
+
+// Mapear IDs para a API CoinCap
+function getCoinId(cmcId) {
+  const idMap = {
+      '1': 'bitcoin',
+      '1027': 'ethereum',
+      '1839': 'binance-coin',
+      '5426': 'solana',
+      '52': 'xrp',
+      '2010': 'cardano',
+      '74': 'dogecoin'
+  };
+  
+  return idMap[cmcId] || 'bitcoin';
+}
+
+// Modificar a função updateChart
+function updateChart(priceData) {
+  // Processar dados para o gráfico
+  const labels = [];
+  const prices = [];
+  
+  priceData.forEach(dataPoint => {
+      const date = new Date(dataPoint.time);
+      const formattedDate = formatDate(date);
+      labels.push(formattedDate);
+      prices.push(parseFloat(dataPoint.priceUsd));
+  });
+  
+  // Atualizar dados do gráfico
+  state.priceChart.data.labels = labels;
+  state.priceChart.data.datasets[0].data = prices;
+  
+  // Atualizar o título do gráfico
+  const coinName = elements.coinSelect.options[elements.coinSelect.selectedIndex].text;
+  state.priceChart.data.datasets[0].label = `${coinName} - Preço USD`;
+  
+  // Atualizar o gráfico
+  state.priceChart.update();
+}
+
+// Modificar a função updateCoinInfo
+function updateCoinInfo(coinData) {
+  // Atualizar preço atual
+  elements.currentPrice.textContent = `$${formatNumber(parseFloat(coinData.priceUsd))}`;
+  
+  // Atualizar capitalização de mercado
+  elements.marketCap.textContent = `$${formatLargeNumber(parseFloat(coinData.marketCapUsd))}`;
+  
+  // Atualizar volume 24h
+  elements.volume24h.textContent = `$${formatLargeNumber(parseFloat(coinData.volumeUsd24Hr))}`;
+  
+  // Atualizar variação de preço 24h
+  const change24h = parseFloat(coinData.changePercent24Hr);
+  elements.change24h.textContent = `${change24h >= 0 ? '+' : ''}${formatNumber(change24h)}%`;
+  elements.change24h.className = change24h >= 0 ? 'positive' : 'negative';
+}
