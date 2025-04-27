@@ -17,12 +17,15 @@ async function fetchCryptoData() {
     // Mostrar estado de carregamento
     cryptoContainer.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Carregando dados...</div>';
     
+    // Verifica se a moeda selecionada é válida
     const response = await fetch(`${API_BASE_URL}?currency=${currentCurrency}`);
     
+
+    // Verifica se a resposta da API é válida
     if (!response.ok) {
       throw new Error(`Erro na API: ${response.status}`);
     }
-    
+    // Verifica se a resposta é válida
     const data = await response.json();
     displayCryptoData(data.data);
     
@@ -38,15 +41,18 @@ async function fetchCryptoData() {
 function displayCryptoData(cryptos) {
   cryptoContainer.innerHTML = '';
   
+  // Ordena as criptomoedas por preço em ordem decrescente
   cryptos.forEach(crypto => {
     const price = crypto.quote[currentCurrency].price;
     const change1h = crypto.quote[currentCurrency].percent_change_1h;
     const change24h = crypto.quote[currentCurrency].percent_change_24h;
     const change7d = crypto.quote[currentCurrency].percent_change_7d;
     
+    // Cria o card da criptomoeda
     const cryptoCard = document.createElement('div');
     cryptoCard.className = 'crypto-card';
     
+    // Adiciona o conteúdo do card
     cryptoCard.innerHTML = `
       <div class="crypto-header">
         <img src="${ICON_URL}${crypto.id}.png" alt="${crypto.name}" class="crypto-icon" onerror="this.src='https://via.placeholder.com/40'">
@@ -63,6 +69,7 @@ function displayCryptoData(cryptos) {
       </div>
     `;
     
+    // Adiciona o card ao container
     cryptoContainer.appendChild(cryptoCard);
   });
 }
@@ -77,10 +84,12 @@ function formatCurrency(value) {
   }).format(value);
 }
 
+// Formata a mudança percentual
 function formatChange(value) {
   return value ? `${value > 0 ? '+' : ''}${value.toFixed(2)}%` : '-';
 }
 
+// Retorna a classe CSS para mudança positiva ou negativa
 function getChangeClass(value) {
   if (!value) return '';
   return value > 0 ? 'positive' : 'negative';
@@ -92,6 +101,7 @@ currencySelect.addEventListener('change', (e) => {
   fetchCryptoData();
 });
 
+// Atualiza os dados ao clicar no botão de refresh
 refreshBtn.addEventListener('click', fetchCryptoData);
 
 // Inicialização

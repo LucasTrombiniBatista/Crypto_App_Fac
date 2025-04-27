@@ -23,6 +23,7 @@ app.get('/api/crypto', async (req, res) => {
   const currency = req.query.currency || 'BRL';
   const limit = req.query.limit || 20;
 
+  // Validação de parâmetros
   try {
     const response = await axios.get(API_URL, {
       headers: {
@@ -41,6 +42,7 @@ app.get('/api/crypto', async (req, res) => {
       timestamp: new Date().toLocaleString('pt-BR')
     };
 
+    // Adiciona o timestamp atual à resposta
     res.json(data);
   } catch (error) {
     console.error('Erro ao buscar dados da API:', error.message);

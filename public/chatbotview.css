@@ -14,13 +14,13 @@
   
   /*centralizar chatbot_btn conteudo*/
   #chatbot_btn{
-    height: 5%; /* Full height */
+    height: 2rem; /* Full height */
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #3a5cf7;
     color: white;
-    border-radius: 15px;
+    border-radius: 15px 15px 0 0;
     border: none;
     cursor: pointer;
     ;
