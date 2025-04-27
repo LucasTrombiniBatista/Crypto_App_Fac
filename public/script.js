@@ -72,7 +72,18 @@ function displayCryptoData(cryptos) {
         <span>7d: <span class="${getChangeClass(change7d)}">${formatChange(change7d)}</span></span>
       </div>
     `;
+    const detailsButton = document.createElement('button');
+    detailsButton.className = 'details-btn';
+    detailsButton.textContent = 'Graficos';
+    detailsButton.dataset.id = crypto.id; // Ou qualquer identificador único da moeda
     
+    // Adicione o evento de clique
+    detailsButton.addEventListener('click', function() {
+      openCryptoDetails(this.dataset.id);
+    });
+    
+    // Anexe o botão ao card
+    cryptoCard.appendChild(detailsButton);
     // Adiciona o card ao container
     cryptoContainer.appendChild(cryptoCard);
   });
@@ -98,7 +109,53 @@ function getChangeClass(value) {
   if (!value) return '';
   return value > 0 ? 'positive' : 'negative';
 }
-
+function openCryptoDetails(cryptoId) {
+  // Crie o elemento modal se ainda não existir
+  let modal = document.getElementById('crypto-details-modal');
+  
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.id = 'crypto-details-modal';
+    modal.className = 'modal';
+    
+    // Crie a estrutura interna do modal
+    modal.innerHTML = `
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2 id="modal-crypto-name">Detalhes da Criptomoeda</h2>
+        <div id="modal-crypto-details">
+          <!-- Aqui você adicionará as informações adicionais -->
+          <p>Carregando detalhes da moeda ${cryptoId}...</p>
+          <!-- Espaço para informações futuras -->
+        </div>
+      </div>
+    `;
+    
+    document.body.appendChild(modal);
+    
+    // Adicione evento para fechar o modal
+    const closeBtn = modal.querySelector('.close-modal');
+    closeBtn.addEventListener('click', function() {
+      modal.style.display = 'none';
+    });
+    
+    // Fechar o modal se clicar fora dele
+    window.addEventListener('click', function(event) {
+      if (event.target === modal) {
+        modal.style.display = 'none';
+      }
+    });
+  }
+  
+  // Atualize o conteúdo do modal para a criptomoeda atual
+  document.getElementById('modal-crypto-name').textContent = `Detalhes de: ${cryptoId}`;
+  
+  // Aqui você pode buscar e exibir informações adicionais sobre a moeda
+  // fetchCryptoDetails(cryptoId);
+  
+  // Mostrar o modal
+  modal.style.display = 'block';
+}
 // Event Listeners
 currencySelect.addEventListener('change', (e) => {
   currentCurrency = e.target.value;
