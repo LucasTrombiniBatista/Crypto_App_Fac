@@ -10,6 +10,10 @@ const updateTimeElement = document.getElementById('update-time');
 
 // Moeda padrão
 let currentCurrency = 'BRL';
+let price;
+let change1h;
+let change24h;
+let change7d;
 
 // Função para buscar dados da API
 async function fetchCryptoData() {
@@ -43,10 +47,10 @@ function displayCryptoData(cryptos) {
   
   // Ordena as criptomoedas por preço em ordem decrescente
   cryptos.forEach(crypto => {
-    const price = crypto.quote[currentCurrency].price;
-    const change1h = crypto.quote[currentCurrency].percent_change_1h;
-    const change24h = crypto.quote[currentCurrency].percent_change_24h;
-    const change7d = crypto.quote[currentCurrency].percent_change_7d;
+    price = crypto.quote[currentCurrency].price;
+    change1h = crypto.quote[currentCurrency].percent_change_1h;
+    change24h = crypto.quote[currentCurrency].percent_change_24h;
+    change7d = crypto.quote[currentCurrency].percent_change_7d;
     console.log(crypto.name);                            // Adiciona log para verificar os dados da criptomoeda
     // Cria o card da criptomoeda
     const cryptoCard = document.createElement('div');
