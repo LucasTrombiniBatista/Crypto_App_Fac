@@ -47,7 +47,9 @@ function displayCryptoData(cryptos) {
     const change1h = crypto.quote[currentCurrency].percent_change_1h;
     const change24h = crypto.quote[currentCurrency].percent_change_24h;
     const change7d = crypto.quote[currentCurrency].percent_change_7d;
-    
+    const change30d = crypto.quote[currentCurrency].percent_change_30d;
+    const change60d = crypto.quote[currentCurrency].percent_change_60d;
+    const change90d = crypto.quote[currentCurrency].percent_change_90d;
     // Cria o card da criptomoeda
     const cryptoCard = document.createElement('div');
     cryptoCard.className = 'crypto-card';
@@ -82,7 +84,10 @@ function displayCryptoData(cryptos) {
       price: price,
       change1h: change1h,
       change24h: change24h,
-      change7d: change7d
+      change7d: change7d,
+      change30d: change30d,
+      change60d: change60d,
+      change90d: change90d
     });
     
     // Adicione o evento de clique
@@ -183,6 +188,9 @@ function openCryptoDetails(cryptoData) {
       <p>1h: <span class="${getChangeClass(cryptoData.change1h)}">${formatChange(cryptoData.change1h)}</span></p>
       <p>24h: <span class="${getChangeClass(cryptoData.change24h)}">${formatChange(cryptoData.change24h)}</span></p>
       <p>7d: <span class="${getChangeClass(cryptoData.change7d)}">${formatChange(cryptoData.change7d)}</span></p>
+      <p>30d: <span class="${getChangeClass(cryptoData.change30d)}">${formatChange(cryptoData.change30d)}</span></p>
+      <p>60d: <span class="${getChangeClass(cryptoData.change60d)}">${formatChange(cryptoData.change60d)}</span></p>
+      <p>90d: <span class="${getChangeClass(cryptoData.change90d)}">${formatChange(cryptoData.change90d)}</span></p>
     `;
   }
   
@@ -200,17 +208,20 @@ function renderCryptoChart(cryptoData) {
   
   // Prepara os dados para o gráfico
   const chartData = {
-    labels: ['7 dias atrás', '24 horas atrás', '1 hora atrás', 'Agora'],
+    labels: ['90 dias atrás', '60 dias atrás', '30 dias atrás', '7 dias atrás', '24 horas atrás', '1 hora atrás', 'Agora'],
     datasets: [{
       label: `${cryptoData.symbol} Preço (${currentCurrency})`,
       data: [
+        calculatePriceFromChange(cryptoData.price, cryptoData.change90d),
+        calculatePriceFromChange(cryptoData.price, cryptoData.change60d),
+        calculatePriceFromChange(cryptoData.price, cryptoData.change30d),
         calculatePriceFromChange(cryptoData.price, cryptoData.change7d),
         calculatePriceFromChange(cryptoData.price, cryptoData.change24h),
         calculatePriceFromChange(cryptoData.price, cryptoData.change1h),
         cryptoData.price
       ],
       borderColor: '#4a6cf7',
-      backgroundColor: 'rgba(74, 108, 247, 0.1)',
+      backgroundColor: 'rgb(71, 71, 72)',
       borderWidth: 2,
       pointRadius: 4,
       pointBackgroundColor: '#4a6cf7',
