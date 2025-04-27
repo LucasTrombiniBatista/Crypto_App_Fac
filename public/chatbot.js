@@ -4,9 +4,6 @@ const login = document.querySelector(".login");
 const loginForm = document.querySelector(".login__form");
 const loginInput = document.querySelector(".login__input");
 
-let websocket
-
-
 //chat elements
 const chat = document.querySelector(".chat");
 const chatForm = document.querySelector(".chat__form");
@@ -14,7 +11,7 @@ const chatInput = document.querySelector(".chat__input");
 const chatMessages = document.querySelector(".chat__messages");
 
 
-
+// function to scroll to bottom of chat messages
 const scrollScreen = () => {
     window.scrollTo({
         top: document.body.scrollHeight,
@@ -32,6 +29,7 @@ const createMessageSelfElement = (content) => {
     return div
 }
 
+//function to create message element for other users
 const createMessageOtherElement = (content, sender) => {
     const div = document.createElement("div")
     const span = document.createElement("span")
@@ -48,6 +46,7 @@ const createMessageOtherElement = (content, sender) => {
     return div
 }
 
+//function to process message from server / IAchatbot
 const processMenssage = ({data}) => {
     const {userId, userName, content} = JSON.parse(data)
 
@@ -58,8 +57,8 @@ const processMenssage = ({data}) => {
 
     chatMessages.appendChild(message)
 
-    scrollScreen()
     //scroll to bottom of chat messages
+    scrollScreen()
 }
 
 

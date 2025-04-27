@@ -47,7 +47,7 @@ function displayCryptoData(cryptos) {
     const change1h = crypto.quote[currentCurrency].percent_change_1h;
     const change24h = crypto.quote[currentCurrency].percent_change_24h;
     const change7d = crypto.quote[currentCurrency].percent_change_7d;
-    
+    console.log(crypto.name);                            // Adiciona log para verificar os dados da criptomoeda
     // Cria o card da criptomoeda
     const cryptoCard = document.createElement('div');
     cryptoCard.className = 'crypto-card';
