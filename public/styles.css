@@ -210,7 +210,6 @@
     cursor: pointer;
   }
   
-  /* Mantenha o estilo do botão de detalhes como estava antes */
   .details-btn {
     background-color: #4CAF50;
     border: none;
@@ -228,4 +227,60 @@
   
   .details-btn:hover {
     background-color: #45a049;
+  }
+  .chart-container {
+    width: 100%;
+    height: 300px;
+    margin: 20px 0;
+  }
+  
+  .crypto-price-summary {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+  }
+  
+  .current-price, .price-changes {
+    flex: 1;
+  }
+  
+  .price-value {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .crypto-price-summary h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .crypto-price-summary p {
+    margin: 5px 0;
+  }
+  
+  /* Estilos para dispositivos móveis */
+  @media (max-width: 768px) {
+    .crypto-price-summary {
+      flex-direction: column;
+    }
+    
+    .current-price, .price-changes {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    
+    .chart-container {
+      height: 250px;
+    }
+    
+    .modal-content {
+      width: 90%;
+      margin: 15% auto;
+      padding: 15px;
+    }
   }
