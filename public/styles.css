@@ -148,3 +148,139 @@
       gap: 5px;
     }
   }
+  .details-btn {
+    background-color: #0e81c3;
+    border: none;
+    color: white;
+    padding: 4px 8px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .details-btn:hover {
+    background-color: #043752;
+  }
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.7);
+    overflow: auto;
+  }
+  
+  .modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 25px;
+    width: 75%;  /* Ocupa 3/4 da largura da tela */
+    max-width: 1000px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    animation: modalopen 0.4s;
+  }
+  
+  @keyframes modalopen {
+    from {opacity: 0; transform: scale(0.8);}
+    to {opacity: 1; transform: scale(1);}
+  }
+  
+  .close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .close-modal:hover,
+  .close-modal:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .details-btn {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 8px 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 10px 0;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .details-btn:hover {
+    background-color: #45a049;
+  }
+  .chart-container {
+    width: 100%;
+    height: 300px;
+    margin: 20px 0;
+  }
+  
+  .crypto-price-summary {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+  }
+  
+  .current-price, .price-changes {
+    flex: 1;
+  }
+  
+  .price-value {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+  
+  .crypto-price-summary h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #666;
+  }
+  
+  .crypto-price-summary p {
+    margin: 5px 0;
+  }
+  
+  /* Estilos para dispositivos móveis */
+  @media (max-width: 768px) {
+    .crypto-price-summary {
+      flex-direction: column;
+    }
+    
+    .current-price, .price-changes {
+      width: 100%;
+      margin-bottom: 15px;
+    }
+    
+    .chart-container {
+      height: 250px;
+    }
+    
+    .modal-content {
+      width: 90%;
+      margin: 15% auto;
+      padding: 15px;
+    }
+  }
