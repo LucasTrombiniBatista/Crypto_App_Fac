@@ -56,3 +56,35 @@ app.get('/api/crypto', async (req, res) => {
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
+
+
+
+// //------------------------------------------------27/04/25----Lucas alter----test---------------------------------------------------------------------//
+// // Rota para buscar IDs de criptomoedas
+// // Esta rota retorna os IDs, nomes e símbolos das criptomoedas disponíveis na API
+// // O endpoint é acessível em /api/crypto-ids
+
+// app.get('/api/crypto-ids', async (req, res) => {
+//   try{
+//     const response = await axios.get(API_URL, {
+//       headers: {
+//         'X-CMC_PRO_API_KEY': API_KEY,
+//         'Accept': 'application/json'
+//       },
+//       params: {
+//         limit: 100 
+//       }
+//     });
+
+//     const cryptoIds = response.data.data.map(crypto => ({
+//       id: crypto.id,
+//       name: crypto.name,
+//       symbol: crypto.symbol
+//     }));
+
+//     res.json(cryptoIds);
+//   } catch (error) {
+//     console.error('Erro:', error.message);
+//     res.status(500).json({ error: error.message });
+//   }
+// });
