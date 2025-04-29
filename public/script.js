@@ -225,7 +225,7 @@ function renderCryptoChart(cryptoData) {
       borderWidth: 2,
       pointRadius: 4,
       pointBackgroundColor: '#4a6cf7',
-      tension: 0.4 // Adiciona uma curva suave
+      tension: 0.2 // Adiciona uma curva suave
     }]
   };
   
