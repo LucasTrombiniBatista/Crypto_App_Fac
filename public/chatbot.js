@@ -72,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // Função para obter resposta da API Gemini
   async function getBotResponse(userMessage) {
     // Substitua por sua chave API real
-    API_KEY="AIzaSyBVPEY3aKA1-4IKxw2HwtHygPJutlSt08g"
+    API_KEY= 00
     const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
   
     try {
