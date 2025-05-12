@@ -79,14 +79,12 @@ function formatCryptoDataForContext(cryptos) {
   const topCryptos = cryptos.slice(0, 5);
   
   let formattedData = "Dados de criptomoedas atualizados:\n";
-  
   topCryptos.forEach(crypto => {
     const price = crypto.quote.BRL.price;
     const change24h = crypto.quote.BRL.percent_change_24h;
     
     formattedData += `${crypto.name} (${crypto.symbol}): ${formatCurrency(price)} | 24h: ${formatChange(change24h)}\n`;
   });
-  
   return formattedData;
 }
 
@@ -416,3 +414,4 @@ Responda de forma breve e útil.`
     );
   }
 }
+
