@@ -6,10 +6,8 @@ document.addEventListener("DOMContentLoaded", function () {
   const chatbotMessages = document.getElementById("chatbot-messages");
   const chatbotIcon = document.getElementById("chatbot-icon");
 
-  // API Base URL para os dados de criptomoedas
-  const API_BASE_URL = 'http://localhost:3000/api/crypto';
-  const CRYPTO_CURRENCY = 'BRL'; // Moeda padrão
 
+  
   // Animação de mostrar chatbot
   chatbotIcon.addEventListener("click", () => {
     chatbotContainer.classList.remove("hidden");
@@ -75,8 +73,8 @@ function appendMessage(sender, message) {
 
 // Função para formatar os dados de criptomoeda para o contexto
 function formatCryptoDataForContext(cryptos) {
-  // Limitamos a 5 criptomoedas para não sobrecarregar o contexto
-  const topCryptos = cryptos.slice(0, 5);
+  // Limitamos a 20 criptomoedas para não sobrecarregar o contexto
+  const topCryptos = cryptos.slice(0, 20);
   
   let formattedData = "Dados de criptomoedas atualizados:\n";
   topCryptos.forEach(crypto => {
@@ -209,6 +207,9 @@ function formatChange(value) {
   return value ? `${value > 0 ? '+' : ''}${value.toFixed(2)}%` : '-';
 }
 
+
+//----------------------------------------------------------------------------------------------------------------------
+
 // Implementação da função para buscar informações específicas de criptomoedas
 async function getCryptoInfo(cryptoSymbol) {
   const API_BASE_URL = 'http://localhost:3000/api/crypto';
@@ -247,7 +248,7 @@ async function getCryptoInfo(cryptoSymbol) {
       change1h: formatChange(change1h),
       change24h: formatChange(change24h), 
       change7d: formatChange(change7d),
-      trend: change24h > 0 ? "em alta" : "em baixa"
+      trend: change24h > 0 ? "em alta" : "em baixa"    // Exemplo de tendência
     };
   } catch (error) {
     console.error("Erro ao buscar informações da criptomoeda:", error);
@@ -298,6 +299,8 @@ async function processSpecificCryptoQuestions(userMessage) {
   // Se não conseguir processar localmente, retornar null para usar o Gemini
   return null;
 }
+//----------------------------------------------------------------------------------------------------------------------
+
 
 // Modificação na função getBotResponse para usar processamento local quando possível
 async function getBotResponse(userMessage) {
@@ -347,7 +350,7 @@ async function getBotResponse(userMessage) {
           {
             parts: [
               { 
-                text: `Você é um assistente especializado exclusivamente em criptomoedas. Responda apenas perguntas relacionadas a criptomoedas, incluindo Bitcoin, Ethereum, altcoins, blockchain, carteiras digitais, exchanges, segurança, mineração, NFTs e tendências de mercado. Ignore ou recuse educadamente qualquer pergunta que não seja sobre criptomoedas.
+                text: `Você é um assistente especializado exclusivamente em criptomoedas. Responda apenas perguntas relacionadas a criptomoedas e tendências de mercado. Ignore ou recuse educadamente qualquer pergunta que não seja sobre criptomoedas.
 
 ${cryptoContext}
 
